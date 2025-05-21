@@ -1,0 +1,185 @@
+/* Epické CSS pro ToDo List */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  margin: 0;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  letter-spacing: 2px;
+}
+
+form#addForm {
+  display: flex;
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-radius: 50px;
+  background: rgba(255 255 255 / 0.15);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+}
+
+form#addForm input[type="text"] {
+  flex-grow: 1;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  background: rgba(255 255 255 / 0.3);
+  color: #fff;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+form#addForm input[type="text"]:focus {
+  background: rgba(255 255 255 / 0.6);
+  color: #333;
+}
+
+form#addForm button {
+  background: #ff6b6b;
+  border: none;
+  color: white;
+  padding: 0 2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-left: 1rem;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.6);
+}
+
+form#addForm button:hover {
+  background: #ff4c4c;
+  transform: scale(1.05);
+}
+
+form#addForm button:active {
+  transform: scale(0.95);
+}
+
+ul#tasks {
+  list-style: none;
+  max-width: 500px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+ul#tasks li {
+  background: rgba(255 255 255 / 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+
+ul#tasks li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+ul#tasks li span {
+  font-size: 1.1rem;
+  max-width: 70%;
+  word-break: break-word;
+  user-select: none;
+}
+
+ul#tasks li span.completed {
+  text-decoration: line-through;
+  color: #bbb;
+  font-style: italic;
+}
+
+ul#tasks li button {
+  border: none;
+  background: #44bd32;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-left: 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(68, 189, 50, 0.7);
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+ul#tasks li button:nth-child(3) {
+  background: #e84118;
+  box-shadow: 0 3px 8px rgba(232, 65, 24, 0.7);
+}
+
+ul#tasks li button:hover {
+  transform: scale(1.05);
+}
+
+ul#tasks li button:active {
+  transform: scale(0.9);
+}
+
+ul#tasks li button.toggle {
+  background: #00a8ff;
+  box-shadow: 0 3px 8px rgba(0, 168, 255, 0.7);
+}
+
+ul#tasks li button.toggle:hover {
+  background: #0097e6;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  body {
+    padding: 2rem 1rem;
+  }
+  h1 {
+    font-size: 2.4rem;
+  }
+  form#addForm {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  form#addForm input[type="text"] {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  form#addForm button {
+    width: 100%;
+    margin-left: 0;
+  }
+  ul#tasks li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  ul#tasks li button {
+    margin-left: 0;
+    margin-top: 0.6rem;
+  }
+}
