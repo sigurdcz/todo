@@ -1,59 +1,175 @@
-/* public/css/forms.css */
+/* form.css */
 
-/* Základní styl pro formuláře */
-form {
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: #222;
-    border-radius: 8px;
-    color: #eee;
-    font-family: Arial, sans-serif;
+:root {
+  --orange: #ff6600;
+  --orange-dark: #cc5200;
+  --black: #121212;
+  --gray-dark: #222;
+  --gray-light: #444;
+  --text-light: #eee;
+  --error-bg: #ff3300;
+  --error-text: #fff;
 }
 
-form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+* {
+  box-sizing: border-box;
 }
 
-form input[type="email"],
-form input[type="password"],
-form input[type="text"] {
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--black);
+  color: var(--text-light);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+ 
+    position: absolute;
     width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border: 1px solid #444;
-    border-radius: 4px;
-    background: #333;
-    color: #eee;
-    font-size: 1rem;
 }
 
-form button {
-    background-color: #4caf50;
-    color: white;
-    padding: 0.8rem 1.2rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+form {
+  background: var(--gray-dark);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow:
+    0 0 15px var(--orange),
+    0 0 50px var(--orange-dark);
+  transition: box-shadow 0.3s ease;
+
+    max-width: 800px;
+    position: absolute;
+    width: 100%;
 }
 
-form button:hover {
-    background-color: #45a049;
+form:hover {
+  box-shadow:
+    0 0 20px var(--orange),
+    0 0 70px var(--orange-dark);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-shadow: 0 0 10px var(--orange-dark);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: var(--orange);
+  text-shadow: 0 0 5px var(--orange-dark);
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--gray-light);
+  color: var(--text-light);
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  box-shadow: inset 0 0 6px #000;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  background-color: var(--black);
+  box-shadow: 0 0 12px var(--orange);
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--orange);
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--black);
+  cursor: pointer;
+  box-shadow: 0 0 18px var(--orange);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+button:hover,
+button:focus {
+  background-color: var(--orange-dark);
+  color: #fff;
+  box-shadow: 0 0 28px var(--orange-dark);
 }
 
 .error-message {
-    color: #f44336;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    text-align: center;
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: 0 0 15px var(--error-bg);
+  letter-spacing: 1px;
 }
 
-.success-message {
-    color: #4caf50;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    text-align: center;
+p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+p a {
+  color: var(--orange);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+p a:hover,
+p a:focus {
+  color: var(--orange-dark);
+  text-decoration: underline;
+}
+
+/* Pro velmi malé mobilní obrazovky */
+@media (max-width: 360px) {
+  form {
+    padding: 1.5rem 1rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
 }
