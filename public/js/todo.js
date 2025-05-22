@@ -28,26 +28,42 @@ async function loadTasks() {
 function renderTasks(tasks) {
   const list = document.getElementById('tasks');
   list.innerHTML = '';
-  tasks.forEach(({ id, description, completed }) => {
+
+  // Rozdělení na nehotové a hotové
+  const unfinished = tasks.filter(t => !t.completed);
+  const finished = tasks.filter(t => t.completed);
+
+  const sorted = [...unfinished, ...finished]; // nehotové nahoru, hotové dolů
+
+  sorted.forEach(({ id, description, completed }) => {
     const li = document.createElement('li');
+    li.classList.toggle('completed', completed);
 
     const span = document.createElement('span');
     span.textContent = description;
-    if (completed) span.classList.add('completed');
+    span.className = completed ? 'completed' : '';
 
-    const toggleBtn = document.createElement('button');
-    toggleBtn.classList.add('toggle');
-    toggleBtn.textContent = completed ? 'Nehotovo' : 'Hotovo';
-    toggleBtn.onclick = () => updateTask(id, { description, completed: completed ? 0 : 1 });
+    li.onclick = e => {
+      if (e.target.classList.contains('delete-btn')) return;
+      updateTask(id, { description, completed: completed ? 0 : 1 });
+    };
 
     const delBtn = document.createElement('button');
-    delBtn.textContent = 'Smazat';
-    delBtn.onclick = () => deleteTask(id);
+    delBtn.className = 'delete-btn';
+    delBtn.textContent = '✕';
+    delBtn.title = 'Smazat úkol';
+    delBtn.onclick = e => {
+      e.stopPropagation();
+      if (confirm('Opravdu chceš smazat tento úkol?')) {
+        deleteTask(id);
+      }
+    };
 
-    li.append(span, toggleBtn, delBtn);
+    li.append(span, delBtn);
     list.appendChild(li);
   });
 }
+
 
 async function updateTask(id, data) {
   await fetch(`${listURL}/task/${id}`, {
