@@ -1,61 +1,66 @@
-const listEndpoint = `/todo/list/${TODO_HASH}`;
+const listURL = `/todo/list/${TODO_HASH}`;
 
-async function fetchList() {
-  const res = await fetch(listEndpoint);
-  const data = await res.json();
-  if (!res.ok) return alert(data.error);
-  renderTasks(data.tasks);
+document.getElementById('addForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const input = document.getElementById('description');
+  const text = input.value.trim();
+  if (!text) return;
+  await fetch(`${listURL}/task`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ description: text })
+  });
+  input.value = '';
+  loadTasks();
+});
+
+async function loadTasks() {
+  try {
+    const res = await fetch(listURL);
+    const data = await res.json();
+    if (!res.ok) return alert(data.error || 'Chyba při načítání úkolů.');
+    renderTasks(data.tasks || []);
+  } catch (err) {
+    alert('Nepodařilo se načíst úkoly.');
+  }
 }
 
 function renderTasks(tasks) {
-  const ul = document.getElementById('tasks');
-  ul.innerHTML = '';
-  tasks.forEach(task => {
+  const list = document.getElementById('tasks');
+  list.innerHTML = '';
+  tasks.forEach(({ id, description, completed }) => {
     const li = document.createElement('li');
-    const desc = document.createElement('span');
-    desc.textContent = task.description;
-    if (task.completed) desc.style.textDecoration = 'line-through';
 
-    const toggle = document.createElement('button');
-    toggle.textContent = task.completed ? 'Nehotovo' : 'Hotovo';
-    toggle.onclick = () => updateTask(task.id, {
-      description: task.description,
-      completed: task.completed ? 0 : 1
-    });
+    const span = document.createElement('span');
+    span.textContent = description;
+    if (completed) span.classList.add('completed');
 
-    const del = document.createElement('button');
-    del.textContent = 'Smazat';
-    del.onclick = () => deleteTask(task.id);
+    const toggleBtn = document.createElement('button');
+    toggleBtn.classList.add('toggle');
+    toggleBtn.textContent = completed ? 'Nehotovo' : 'Hotovo';
+    toggleBtn.onclick = () => updateTask(id, { description, completed: completed ? 0 : 1 });
 
-    li.append(desc, toggle, del);
-    ul.appendChild(li);
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Smazat';
+    delBtn.onclick = () => deleteTask(id);
+
+    li.append(span, toggleBtn, delBtn);
+    list.appendChild(li);
   });
 }
 
 async function updateTask(id, data) {
-  await fetch(`/todo/list/${TODO_HASH}/task/${id}`, {
+  await fetch(`${listURL}/task/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   });
-  fetchList();
+  loadTasks();
 }
 
 async function deleteTask(id) {
-  await fetch(`/todo/list/${TODO_HASH}/task/${id}`, { method: 'DELETE' });
-  fetchList();
+  await fetch(`${listURL}/task/${id}`, { method: 'DELETE' });
+  loadTasks();
 }
 
-document.getElementById('addForm').onsubmit = async e => {
-  e.preventDefault();
-  const desc = document.getElementById('description').value;
-  await fetch(`/todo/list/${TODO_HASH}/task`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ description: desc })
-  });
-  document.getElementById('description').value = '';
-  fetchList();
-};
-
-fetchList();
+loadTasks();
