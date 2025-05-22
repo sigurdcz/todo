@@ -20,6 +20,7 @@ class Request
 
     /**
      * Vrací data z JSON těla requestu jako asociativní pole, nebo null.
+     * @todo predelat na DTO
      */
     public function getJsonBody(): ?array
     {
@@ -31,6 +32,7 @@ class Request
         return is_array($data) ? $data : null;
     }
 
+    /** @todo upravit dle SRP */
     public function getContentTypeHeader(): ?string
     {
         $uri = $this->getUri();

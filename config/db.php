@@ -17,7 +17,7 @@ try {
     ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo 'Databázové připojení selhalo.';
+    log_error('Databázové připojení selhalo.');
     exit;
 }
 
