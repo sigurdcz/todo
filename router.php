@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Controller\AuthController;
 use App\Controller\TodoController;
 use App\Core\Request;
+use App\Core\Middleware\AuthMiddleware;
 
 /**
  * @param Psr\Container\ContainerInterface $container
@@ -17,6 +18,18 @@ function routeRequest($container): void
     $contentTypeHeader = $request->getContentTypeHeader();
     if ($contentTypeHeader) {
         header($contentTypeHeader);
+    }
+
+    $protectedRoutes = [
+        '#^/todo#',
+    ];
+
+    foreach ($protectedRoutes as $pattern) {
+        if (preg_match($pattern, $uri)) {
+            $middleware = new AuthMiddleware($container->get(\App\Service\AuthService::class));
+            $middleware->handle($request);
+            break;
+        }
     }
 
     switch (true) {
@@ -42,6 +55,22 @@ function routeRequest($container): void
 
         case $uri === '/todo' && $method === 'GET':
             $container->get(TodoController::class)->index($request);
+            break;
+
+        case $uri === '/auth/login' && $method === 'POST':
+            $container->get(AuthController::class)->handleLogin($request);
+            break;
+
+        case $uri === '/auth/register' && $method === 'GET':
+            $container->get(AuthController::class)->registerForm();
+            break;
+
+        case $uri === '/auth/register' && $method === 'POST':
+            $container->get(AuthController::class)->handleRegister($request);
+            break;
+            
+        case $uri === '/auth/logout' && $method === 'GET':
+            $container->get(AuthController::class)->logout($request);
             break;
 
         default:

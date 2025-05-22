@@ -18,10 +18,6 @@ class Request
         return $_GET[$name] ?? $default;
     }
 
-    /**
-     * Vrací data z JSON těla requestu jako asociativní pole, nebo null.
-     * @todo predelat na DTO
-     */
     public function getJsonBody(): ?array
     {
         $input = file_get_contents('php://input');
@@ -32,13 +28,16 @@ class Request
         return is_array($data) ? $data : null;
     }
 
-    /** @todo upravit dle SRP */
+    public function getPostBody(): ?array
+    {
+        return $_POST ?: null;
+    }
+
     public function getContentTypeHeader(): ?string
     {
         $uri = $this->getUri();
         $method = $this->getMethod();
 
-        // API odpovědi mají JSON header
         if (
             preg_match('#^/auth/login#', $uri) ||
             preg_match('#^/todo/list#', $uri)
@@ -46,11 +45,26 @@ class Request
             return 'Content-Type: application/json';
         }
 
-        // HTML stránka nemá Content-Type JSON, necháváme null
-        if ($uri === '/todo' && $method === 'GET') {
-            return null;
-        }
-
         return null;
     }
+
+    /**
+     * Provede redirect na zadanou URL.
+     *
+     * @param string $url Kam redirectovat (např. /auth/login)
+     * @param array $headers Volitelné další hlavičky k odeslání
+     * @param bool $preserveQueryParams Pokud true, připojí původní query string nebo hash
+     */
+    public function redirect(string $url, array $headers = []): void
+    {
+        // Odeslat další hlavičky
+        foreach ($headers as $key => $value) {
+            header("$key: $value");
+        }
+
+        // Základní Location hlavička
+        header("Location: $url");
+        exit;
+    }
+
 }

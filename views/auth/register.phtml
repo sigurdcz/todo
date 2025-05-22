@@ -1,0 +1,29 @@
+<?php
+$error = $_SESSION['error'] ?? null;
+unset($_SESSION['error']);
+?>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registrace</title>
+    <link rel="stylesheet" href="/public/css/forms.css" />
+</head>
+
+<h2>Registrace nového uživatele</h2>
+
+<?php if ($error): ?>
+    <div class="error-message"><?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
+
+<form method="post" action="/auth/register">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="password">Heslo:</label>
+    <input type="password" id="password" name="password" required />
+
+    <label for="password_confirm">Potvrzení hesla:</label>
+    <input type="password" id="password_confirm" name="password_confirm" required />
+
+    <button type="submit">Registrovat</button>
+</form>

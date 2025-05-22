@@ -19,6 +19,7 @@ function getContainer(): App\Core\Container
  */
 function dd(mixed ...$values): never
 {
+    header('Content-Type: text/html; charset=utf-8');
     echo "<pre style='background:#222;color:#0f0;padding:1rem;'>\n";
     foreach ($values as $value) {
         print_r($value);
@@ -33,6 +34,7 @@ function dd(mixed ...$values): never
  */
 function dump(mixed ...$values): void
 {
+    header('Content-Type: text/html; charset=utf-8');
     echo "<pre style='background:#222;color:#0f0;padding:1rem;'>\n";
     foreach ($values as $value) {
         print_r($value);

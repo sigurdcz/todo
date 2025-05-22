@@ -11,4 +11,23 @@ class UserModel {
         $stmt->execute([$token]);
         return $stmt->fetch() ?: null;
     }
+
+    public function findByEmail(string $email): ?array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?: null;
+    }
+
+    public function createUser(string $email, string $hashedPassword): bool
+    {
+        $stmt = $this->db->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
+        try {
+            return $stmt->execute([$email, $hashedPassword]);
+        } catch (\PDOException $e) {
+            log_error("Chyba pri registraci ($email, $hashedPassword)");
+            return false;
+        }
+    }
 }
