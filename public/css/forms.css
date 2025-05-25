@@ -1,40 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-
-* {
-  box-sizing: border-box;
-}
-
-main{
-    width: 100%;
-    padding: 20px;
-}
-
-form{
-    width: 100%;
-    margin: 20px;
-}
-
 body {
-  font-family: 'Montserrat', sans-serif;
-  background: #000;
-  color: #fff;
-  margin: 0;
   padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-  font-size: 1.25rem; /* Zvětšený základní font */
+  font-size: 1.25rem;
 }
 
 h2 {
-  font-weight: 700;
-  font-size: 2.4rem; /* větší nadpis */
+  font-size: 2.4rem;
   margin-bottom: 1.5rem;
-  color: #ff6a00;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 form#LoginForm,
@@ -109,7 +81,6 @@ form#LoginForm p a {
   font-weight: bold;
 }
 
-/* Desktop / tablet */
 @media (min-width: 600px) {
   form#LoginForm,
   form#RegisterForm {

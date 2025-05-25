@@ -1,13 +1,9 @@
 <?php
 $error = $_SESSION['error'] ?? null;
 unset($_SESSION['error']);
-?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Registrace</title>
-    <link rel="stylesheet" href="/public/css/forms.css" />
-</head>
+  $addCss('/public/css/forms.css');
+?>
 
 <h2>Registrace nového uživatele</h2>
 
@@ -26,4 +22,7 @@ unset($_SESSION['error']);
     <input type="password" id="password_confirm" name="password_confirm" required />
 
     <button type="submit">Registrovat</button>
+    <p style="text-align:center; margin-top:1rem;">
+        Mmáte účet? <a href="/auth/login">Přihlaste se zde</a>.
+    </p>
 </form>
