@@ -5,12 +5,14 @@ use App\Core\Request;
 use App\Model\TodoListModel;
 use App\Model\TaskModel;
 use App\Validator\TodoRequestValidator;
+use App\Core\ViewRenderer;
 
 class TodoController
 {
     public function __construct(
         private TodoListModel $lists,
-        private TaskModel $tasks
+        private TaskModel $tasks,
+        private ViewRenderer $viewRenderer
     ) {}
 
     public function getList(Request $request): void
@@ -95,6 +97,6 @@ class TodoController
 
     public function index(Request $request): void
     {
-        include __DIR__ . '/../../views/todo/index.phtml';
+        $this->viewRenderer->render('todo/index');
     }
 }

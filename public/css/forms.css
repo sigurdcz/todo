@@ -1,175 +1,118 @@
-/* form.css */
-
-:root {
-  --orange: #ff6600;
-  --orange-dark: #cc5200;
-  --black: #121212;
-  --gray-dark: #222;
-  --gray-light: #444;
-  --text-light: #eee;
-  --error-bg: #ff3300;
-  --error-text: #fff;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--black);
-  color: var(--text-light);
+main{
+    width: 100%;
+    padding: 20px;
+}
+
+form{
+    width: 100%;
+    margin: 20px;
 }
 
 body {
+  font-family: 'Montserrat', sans-serif;
+  background: #000;
+  color: #fff;
+  margin: 0;
+  padding: 2rem 1.5rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 1rem;
- 
-    position: absolute;
-    width: 100%;
-}
-
-form {
-  background: var(--gray-dark);
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
   width: 100%;
-  max-width: 400px;
-  box-shadow:
-    0 0 15px var(--orange),
-    0 0 50px var(--orange-dark);
-  transition: box-shadow 0.3s ease;
-
-    max-width: 800px;
-    position: absolute;
-    width: 100%;
-}
-
-form:hover {
-  box-shadow:
-    0 0 20px var(--orange),
-    0 0 70px var(--orange-dark);
+  font-size: 1.25rem; /* Zvětšený základní font */
 }
 
 h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
   font-weight: 700;
-  font-size: 2rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--orange);
-  text-shadow: 0 0 10px var(--orange-dark);
-}
-
-label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 600;
-  color: var(--orange);
-  text-shadow: 0 0 5px var(--orange-dark);
-}
-
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 0.75rem 1rem;
+  font-size: 2.4rem; /* větší nadpis */
   margin-bottom: 1.5rem;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--gray-light);
-  color: var(--text-light);
-  font-size: 1.1rem;
-  transition: background-color 0.3s ease;
-  box-shadow: inset 0 0 6px #000;
+  color: #ff6a00;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  outline: none;
-  background-color: var(--black);
-  box-shadow: 0 0 12px var(--orange);
-}
-
-button {
+form#LoginForm,
+form#RegisterForm {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 1rem;
-  background-color: var(--orange);
+  background: rgba(255, 106, 0, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  gap: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 106, 0, 0.3);
+}
+
+form#LoginForm label,
+form#RegisterForm label {
+  font-weight: bold;
+  color: #ffb88c;
+  font-size: 1.2rem;
+}
+
+form#LoginForm input,
+form#RegisterForm input {
+  padding: 1.2rem 1.4rem;
   border: none;
   border-radius: 10px;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--black);
-  cursor: pointer;
-  box-shadow: 0 0 18px var(--orange);
-  transition: background-color 0.3s ease, color 0.3s ease;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-size: 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+  transition: background 0.2s;
+  width: 100%;
 }
 
-button:hover,
-button:focus {
-  background-color: var(--orange-dark);
-  color: #fff;
-  box-shadow: 0 0 28px var(--orange-dark);
+form#LoginForm button,
+form#RegisterForm button {
+  background: #ff6a00;
+  border: none;
+  padding: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 10px;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+form#LoginForm p {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 1.1rem;
+}
+
+form#LoginForm p a {
+  color: #ff6a00;
+  text-decoration: underline;
+  transition: color 0.2s;
 }
 
 .error-message {
-  background-color: var(--error-bg);
-  color: var(--error-text);
-  padding: 1rem 1.2rem;
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #ff9999;
+  padding: 1.2rem;
   border-radius: 10px;
   margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 1280px;
   text-align: center;
-  font-weight: 700;
-  box-shadow: 0 0 15px var(--error-bg);
-  letter-spacing: 1px;
+  border: 2px solid #ff3333;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
-p {
-  color: var(--text-light);
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-p a {
-  color: var(--orange);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-p a:hover,
-p a:focus {
-  color: var(--orange-dark);
-  text-decoration: underline;
-}
-
-/* Pro velmi malé mobilní obrazovky */
-@media (max-width: 360px) {
-  form {
-    padding: 1.5rem 1rem;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-  }
-
-  input[type="email"],
-  input[type="password"] {
-    font-size: 1rem;
-    padding: 0.6rem 0.8rem;
-  }
-
-  button {
-    font-size: 1rem;
-    padding: 0.8rem;
+/* Desktop / tablet */
+@media (min-width: 600px) {
+  form#LoginForm,
+  form#RegisterForm {
+    max-width: 1280px;
   }
 }

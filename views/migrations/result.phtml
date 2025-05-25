@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <title>Výsledek migrace</title>
-    <style>
-        body { font-family: sans-serif; margin: 2rem; }
-        h1 { color: #2c3e50; }
-        ul { padding-left: 1.2rem; }
-        li { margin-bottom: .5rem; color: #34495e; }
-        .error { color: red; }
-    </style>
-</head>
-<body>
-    <h1>Migration Result</h1>
-    <ul>
-        <?php foreach ($result as $line): ?>
-            <li><?= $line ?></li>
-        <?php endforeach; ?>
-    </ul>
-</body>
-</html>
+<?php
+$addCss('/public/css/migration.css');
+$addJs('/public/js/migration.js');
+?>
+
+<h2>Výsledek migrací</h2>
+<ul>
+    <?php foreach ($output as $line): ?>
+        <li><?= $line ?></li>
+    <?php endforeach; ?>
+</ul>

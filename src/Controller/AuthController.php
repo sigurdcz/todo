@@ -6,6 +6,7 @@ use App\Core\Request;
 use App\Model\UserTodoListModel;
 use App\Model\TodoListModel;
 use App\Model\UserModel;
+use App\Core\ViewRenderer;
 
 class AuthController
 {
@@ -14,7 +15,8 @@ class AuthController
         private UserTodoListModel $userTodoListModel,
         private TodoListModel $todoListModel,
         private UserModel $userModel,
-        private Request $request
+        private Request $request,
+        private ViewRenderer $viewRenderer
     ) {}
 
     public function handleLogin(Request $request): void
@@ -48,7 +50,7 @@ class AuthController
     public function login(Request $request): void
     {
         header('Content-Type: text/html; charset=utf-8');
-        require __DIR__ . '/../../views/auth/login.phtml';
+        $this->viewRenderer->render('/auth/login');
     }
 
     private function redirectWithError(Request $request, string $message): void
@@ -60,7 +62,7 @@ class AuthController
     public function registerForm(): void
     {
         header('Content-Type: text/html; charset=utf-8');
-        require __DIR__ . '/../../views/auth/register.phtml';
+           $this->viewRenderer->render('/auth/register');
     }
 
     public function handleRegister(Request $request): void

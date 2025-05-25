@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Moje Aplikace</title>
+    <?= $getCss() ?>
+    <?= $getJs() ?>
+</head>
+<body>
+    <header>
+        <h1>Todo Aplikace</h1>
+    </header>
+
+    <main>
+        <?= $content ?>
+    </main>
+
+    <footer>
+        <p>&copy; <?= date('Y') ?> Moje Aplikace</p>
+    </footer>
+</body>
+</html>
