@@ -68,9 +68,13 @@ function routeRequest($container): void
         case $uri === '/auth/register' && $method === 'POST':
             $container->get(AuthController::class)->handleRegister($request);
             break;
-            
+
         case $uri === '/auth/logout' && $method === 'GET':
             $container->get(AuthController::class)->logout($request);
+            break;
+            
+        case $uri === '/migrate' && $method === 'GET':
+            $container->get(App\Controller\MigrationController::class)->run($request);
             break;
 
         default:

@@ -15,6 +15,9 @@ use App\Controller\AuthController;
 use App\Controller\TodoController;
 use App\Core\Logger;
 use App\Core\Request;
+use App\Model\MigrationModel;
+use App\Controller\MigrationController;
+
 
 $container = new Container();
 $container->set('db', fn() => require __DIR__ . '/config/db.php');
@@ -24,9 +27,7 @@ $container->set(UserModel::class, fn($c) => new UserModel($c->get('db')));
 $container->set(TodoListModel::class, fn($c) => new TodoListModel($c->get('db')));
 $container->set(TaskModel::class, fn($c) => new TaskModel($c->get('db')));
 $container->set(UserTodoListModel::class, fn($c) => new UserTodoListModel($c->get('db')));  // nový model
-
 $container->set(AuthService::class, fn($c) => new AuthService($c->get(UserModel::class)));
-
 $container->set(AuthController::class, fn($c) => new AuthController(
     $c->get(AuthService::class),
     $c->get(UserTodoListModel::class),
@@ -34,9 +35,15 @@ $container->set(AuthController::class, fn($c) => new AuthController(
     $c->get(UserModel::class),
     $c->get(Request::class) 
 ));
-
 $container->set(TodoController::class, fn($c) => new TodoController($c->get(TodoListModel::class), $c->get(TaskModel::class)));
-
+$container->set(MigrationModel::class, function () use ($container) {
+    return new MigrationModel($container->get('db'));
+});
+$container->set(MigrationController::class, function () use ($container) {
+    return new MigrationController(
+        $container->get(MigrationModel::class)
+    );
+});
 $env = require __DIR__ . '/config/env.php';
 $container->set(Logger::class, function () use ($env) {
     return new Logger($env);
