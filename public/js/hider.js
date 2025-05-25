@@ -1,5 +1,5 @@
-(function () {
-    function hideLastFiveBodyElements() {
+const HiderAds = (function () {
+    function hideLastThreeBodyElements() {
         const bodyChildren = document.body.children;
         const count = Math.min(3, bodyChildren.length);
         for (let i = bodyChildren.length - count; i < bodyChildren.length; i++) {
@@ -7,13 +7,16 @@
         }
     }
 
-    function delayedHide() {
-        setTimeout(hideLastFiveBodyElements, 3000); // 3s delay
+    function delayedHideAsync(delay = 3000) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                hideLastThreeBodyElements();
+                resolve();
+            }, delay);
+        });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener("DOMContentLoaded", delayedHide);
-    } else {
-        delayedHide();
-    }
+    return {
+        delayedHideAsync
+    };
 })();
