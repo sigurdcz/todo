@@ -125,3 +125,51 @@ ul#tasks li button.delete-btn:hover {
     margin-left: 0.5rem;
   }
 }
+
+
+#todoLists {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#todoLists li {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  backdrop-filter: blur(4px);
+}
+
+#todoLists li:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+#todoLists li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+#todoLists li a:hover {
+  color: #ffda77;
+}
+
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 400px;
+  margin: 2rem auto;
+  backdrop-filter: blur(4px);
+}
