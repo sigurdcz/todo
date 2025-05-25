@@ -1,10 +1,12 @@
 <?php
   $addCss('/public/css/main.css');
   $addCss('/public/css/loading.css');
+  $addCss('/public/css/menu.css');
 
   $addJs('/public/js/loader.js');
   $addJs('/public/js/hider.js');
   $addJs('/public/js/main.js');
+  $addJs('/public/js/menu.js');
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +14,10 @@
 <head>
     <meta charset="UTF-8">
     <title>TodoList</title>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="\public\icons\favicon\apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="\public\icons\favicon\favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="\public\icons\favicon\favicon-16x16.png">
+    <link rel="manifest" href="\public\icons\favicon\site.webmanifest">
     <?= $getCss() ?>
     <?= $getJs() ?>
 </head>
@@ -21,15 +26,21 @@
         <div class="spinner"></div>
         <div id="loader-percentage">0%</div>
     </div>
-
-    <header>
-        <h1>TodoList</h1>
+    <header class="navbar">
+        <div class="logo">
+            <img src="\public\icons\favicon\favicon-32x32.png" alt="Logo" />
+        </div>
+        <div class="menu-toggle" id="menuToggle">&#9776;</div>
     </header>
-
+    <div class="menu-overlay" id="menuOverlay">
+        <nav class="overlay-nav">
+            <a href="/">Domů</a>
+            <a href="/auth/logout">Odhlásit se</a>
+        </nav>
+    </div>
     <main>
         <?= $content ?>
     </main>
-
     <footer>
         <p>&copy; <?= date('Y') ?> TodoList</p>
     </footer>

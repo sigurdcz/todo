@@ -7,7 +7,7 @@ const HiderAds = (function () {
         }
     }
 
-    function delayedHideAsync(delay = 3000) {
+    function delayedHideAsync(delay = 1000) {
         return new Promise(resolve => {
             setTimeout(() => {
                 hideLastThreeBodyElements();

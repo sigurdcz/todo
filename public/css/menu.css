@@ -1,0 +1,69 @@
+/* Hlavička */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.logo img {
+  height: 40px;
+}
+
+.menu-toggle {
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* Overlay menu */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 17, 17, 0.97);
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 80px 2rem 2rem;
+  z-index: 1050;
+}
+
+.menu-overlay.active {
+  display: flex;
+}
+
+.overlay-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.overlay-nav a {
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.overlay-nav a:hover {
+  color: #ff6a00;
+}
+
+/* Skrytí burgeru na desktopu */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+}
