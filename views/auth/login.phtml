@@ -9,9 +9,9 @@ unset($_SESSION['error']);
     <meta charset="UTF-8">
     <title>Přihlášení</title>
     <link rel="stylesheet" href="/public/css/forms.css" />
+    <script src="/public/js/hider.js"></script>
 </head>
 <body>
-
 
 <?php if ($error): ?>
     <div class="error-message"><?= htmlspecialchars($error) ?></div>
