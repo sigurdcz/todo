@@ -78,9 +78,9 @@ function routeRequest($container): void
             break;
 
         default:
-            header('Content-Type: application/json');
             http_response_code(404);
-            echo json_encode(['error' => 'Not found', 'type' => '404']);
+            $view = new ViewRenderer();
+            $view->render('errors/404');
             break;
     }
 }
