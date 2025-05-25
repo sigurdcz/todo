@@ -42,7 +42,8 @@ $container->set(AuthController::class, fn($c) => new AuthController(
 $container->set(TodoController::class, fn($c) => new TodoController(
     $c->get(TodoListModel::class), 
     $c->get(TaskModel::class),
-    $c->get(ViewRenderer::class)
+    $c->get(ViewRenderer::class),
+    $c->get(AuthService::class)
 ));
 $container->set(MigrationModel::class, function() use ($container) {
     return new MigrationModel($container->get('db'));

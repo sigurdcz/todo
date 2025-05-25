@@ -1,13 +1,20 @@
 <?php
-  // Přidám jen css a js, které chci pro tuto stránku
   $addCss('/public/css/todo.css');
   $addJs('/public/js/todo.js');
 ?>
 
-<form id="addForm">
-    <input type="text" id="description" placeholder="Nový úkol" required />
-    <button type="submit">Přidat</button>
-</form>
+<h1>Moje Todo Listy</h1>
 
-<ul id="tasks"></ul>
-
+<?php if (empty($lists)): ?>
+    <p>Nemáte žádné todo listy.</p>
+<?php else: ?>
+    <ul id="todoLists">
+        <?php foreach ($lists as $list): ?>
+            <li>
+                <a href="/todo/<?= htmlspecialchars($list['hash']) ?>">
+                    <?= htmlspecialchars($list['title']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

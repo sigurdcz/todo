@@ -20,6 +20,14 @@ class UserModel {
         return $user ?: null;
     }
 
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?: null;
+    }
+
     public function createUser(string $email, string $hashedPassword): bool
     {
         $stmt = $this->db->prepare("INSERT INTO users (email, password) VALUES (?, ?)");

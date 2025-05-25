@@ -1,43 +1,69 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const TODO_HASH = params.get('hash');
+  const pathParts = window.location.pathname.split('/');
 
-  if (!TODO_HASH) {
-    alert("Chybí hash v URL!");
+  if (!(pathParts.length === 3 && pathParts[1] === 'todo')) {
     return;
   }
 
+  const TODO_HASH = pathParts[2];
   const listURL = `/todo/list/${TODO_HASH}`;
 
-  document.getElementById('addForm').addEventListener('submit', async e => {
+  const addForm = document.getElementById('addForm');
+  const tasksContainer = document.getElementById('tasks');
+
+  if (!addForm || !tasksContainer) {
+    console.warn("[TODO.js] Nebyl nalezen formulář nebo kontejner pro úkoly. Ukončuji skript.");
+    return;
+  }
+
+  addForm.addEventListener('submit', async e => {
     e.preventDefault();
     const input = document.getElementById('description');
     const text = input.value.trim();
+
     if (!text) return;
-    await fetch(`${listURL}/task`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ description: text })
-    });
-    input.value = '';
-    loadTasks();
+
+    try {
+      const res = await fetch(`${listURL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: text })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        console.error("[TODO.js] Chyba při přidávání úkolu:", errData);
+        alert("Chyba při přidávání úkolu.");
+        return;
+      }
+
+      input.value = '';
+      loadTasks();
+    } catch (err) {
+      console.error("[TODO.js] Výjimka při přidávání úkolu:", err);
+    }
   });
 
   async function loadTasks() {
-    console.log("Load tasks");
     try {
       const res = await fetch(listURL);
       const data = await res.json();
-      if (!res.ok) return alert(data.error || 'Chyba při načítání úkolů.');
+
+      if (!res.ok) {
+        console.error("[TODO.js] Chyba při načítání úkolů:", data.error);
+        alert(data.error || 'Chyba při načítání úkolů.');
+        return;
+      }
+
       renderTasks(data.tasks || []);
     } catch (err) {
+      console.error("[TODO.js] Výjimka při načítání úkolů:", err);
       alert('Nepodařilo se načíst úkoly.');
     }
   }
 
   function renderTasks(tasks) {
-    const list = document.getElementById('tasks');
-    list.innerHTML = '';
+    tasksContainer.innerHTML = '';
 
     const unfinished = tasks.filter(t => !t.completed);
     const finished = tasks.filter(t => t.completed);
@@ -68,24 +94,43 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       li.append(span, delBtn);
-      list.appendChild(li);
+      tasksContainer.appendChild(li);
     });
   }
 
   async function updateTask(id, data) {
-    await fetch(`${listURL}/task/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    loadTasks();
+    try {
+      const res = await fetch(`${listURL}/task/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        console.error("[TODO.js] Chyba při aktualizaci úkolu:", errData);
+      } else {
+        loadTasks();
+      }
+    } catch (err) {
+      console.error("[TODO.js] Výjimka při aktualizaci úkolu:", err);
+    }
   }
 
   async function deleteTask(id) {
-    await fetch(`${listURL}/task/${id}`, { method: 'DELETE' });
-    loadTasks();
+    try {
+      const res = await fetch(`${listURL}/task/${id}`, { method: 'DELETE' });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        console.error("[TODO.js] Chyba při mazání úkolu:", errData);
+      } else {
+        loadTasks();
+      }
+    } catch (err) {
+      console.error("[TODO.js] Výjimka při mazání úkolu:", err);
+    }
   }
 
   loadTasks();
-  console.log("TODO JS Loaded...");
 });

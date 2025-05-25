@@ -39,7 +39,7 @@ class AuthController
             $firstListId = $this->userTodoListModel->getFirstTodoListHashForUser($user['id']);
   
             if ($firstListId !== null) {
-                $this->request->redirect('/todo?hash=' . $firstListId);
+                $this->request->redirect('/todo/' . $firstListId);
             } else {
                 $this->request->redirect('/todo'); // fallback
             }
@@ -62,7 +62,7 @@ class AuthController
     public function registerForm(): void
     {
         header('Content-Type: text/html; charset=utf-8');
-           $this->viewRenderer->render('/auth/register');
+        $this->viewRenderer->render('/auth/register');
     }
 
     public function handleRegister(Request $request): void

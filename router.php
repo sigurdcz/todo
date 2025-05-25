@@ -5,6 +5,8 @@ use App\Controller\AuthController;
 use App\Controller\TodoController;
 use App\Core\Request;
 use App\Core\Middleware\AuthMiddleware;
+use App\Controller\MigrationController;
+use App\Core\ViewRenderer;
 
 /**
  * @param Psr\Container\ContainerInterface $container
@@ -21,7 +23,7 @@ function routeRequest($container): void
     }
 
     $protectedRoutes = [
-        '#^/todo#',
+        '#^/todo#', '#^/$#',  
     ];
 
     foreach ($protectedRoutes as $pattern) {
@@ -37,8 +39,13 @@ function routeRequest($container): void
             $container->get(AuthController::class)->login($request);
             break;
 
+        // Nově místo getList použijeme show pro detail todo listu
+        case preg_match('#^/todo/([a-zA-Z0-9]+)$#', $uri, $m) && $method === 'GET':
+            $container->get(TodoController::class)->show($request, $m[1]);
+            break;
+
         case preg_match('#^/todo/list/([a-zA-Z0-9]+)$#', $uri, $m) && $method === 'GET':
-            $container->get(TodoController::class)->getList($request);
+            $container->get(TodoController::class)->getList($request, $m[1]);
             break;
 
         case preg_match('#^/todo/list/([a-zA-Z0-9]+)/task$#', $uri, $m) && $method === 'POST':
@@ -53,6 +60,7 @@ function routeRequest($container): void
             $container->get(TodoController::class)->deleteTask($request);
             break;
 
+        // Index teď vrací seznam všech todo listů
         case $uri === '/todo' && $method === 'GET':
             $container->get(TodoController::class)->index($request);
             break;
@@ -72,9 +80,9 @@ function routeRequest($container): void
         case $uri === '/auth/logout' && $method === 'GET':
             $container->get(AuthController::class)->logout($request);
             break;
-            
+
         case $uri === '/migrate' && $method === 'GET':
-            $container->get(App\Controller\MigrationController::class)->run($request);
+            $container->get(MigrationController::class)->run($request);
             break;
 
         default:

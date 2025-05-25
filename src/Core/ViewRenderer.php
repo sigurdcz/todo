@@ -15,8 +15,6 @@ class ViewRenderer
     public function render(string $path, array $params = []): void
     {
         extract($params);
-
-        // Umožní použít funkce v šabloně
         $asset = fn($path) => $this->asset($path);
         $addCss = fn($path) => $this->addCss($path);
         $addJs = fn($path) => $this->addJs($path);
@@ -32,7 +30,7 @@ class ViewRenderer
 
     public function asset(string $path): string
     {
-        return $path; // nebo můžeš přidat base path, CDN, verzi, atd.
+        return $path; 
     }
 
     public function addCss(string $path): void

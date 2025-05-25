@@ -18,4 +18,16 @@ class TodoListModel {
         $stmt->execute(['user_id' => $userId, 'hash' => $hash]);
         return (int)$this->db->lastInsertId();
     }
+
+    public function getAllByUserId(int $userId): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT l.* 
+            FROM todo_lists l
+            JOIN user_todo_list u ON u.todo_list_id = l.id
+            WHERE u.user_id = ?
+        ");
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC); // ✅ správně na $stmt
+    }
 }
