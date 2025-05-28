@@ -24,7 +24,6 @@ class MigrationModel
         foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $m) {
             $executed[] = $m;
         }
-
         $output = [];
         foreach (scandir($migrationsDir) as $file) {
             if (pathinfo($file, PATHINFO_EXTENSION) !== 'sql') continue;

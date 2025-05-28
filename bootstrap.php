@@ -72,9 +72,10 @@ $container->set(TodoController::class, fn($c) => new TodoController(
     $c->get(AuthService::class)
 ));
 
-$container->set(MigrationController::class, fn($c) => new MigrationController(
-    $c->get(MigrationModel::class),
-    $c->get(ViewRenderer::class)
+$container->set(MigrationController::class, fn() => new MigrationController(
+    $container->get(MigrationModel::class),
+    $container->get(ViewRenderer::class),
+    $container->get('env') 
 ));
 
 return $container;

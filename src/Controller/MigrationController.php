@@ -14,13 +14,8 @@ class MigrationController
 
     public function run(Request $request): void
     {
-        // Definuj cestu k migracím
-        $migrationsDir = __DIR__ . '/../../migrations';
-
-        // Předat cestu do modelu
+        $migrationsDir = $this->env['MIGRATIONS_DIR'] ?? __DIR__ . '/../../migrations';
         $output = $this->migrationModel->runMigrations($migrationsDir);
-
-        // Render výstupu ve view
         $this->viewRenderer->render('migrations/result', ['output' => $output]);
     }
 }
