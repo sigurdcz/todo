@@ -1,7 +1,7 @@
 const HiderAds = (function () {
     function hideLastThreeBodyElements() {
         const bodyChildren = document.body.children;
-        const count = Math.min(3, bodyChildren.length);
+        const count = Math.min(4, bodyChildren.length);
         for (let i = bodyChildren.length - count; i < bodyChildren.length; i++) {
             bodyChildren[i].style.display = 'none';
         }

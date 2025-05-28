@@ -102,29 +102,7 @@ ul#tasks li button.delete-btn:hover {
   transform: scale(1.2);
 }
 
-@media (min-width: 600px) {
-  form#addForm {
-    flex-direction: row;
-  }
 
-  form#addForm input[type="text"] {
-    flex: 1;
-    margin-right: 0.5rem;
-    margin-bottom: 0;
-  }
-
-  form#addForm button {
-    width: auto;
-  }
-
-  ul#tasks li {
-    flex-direction: row;
-  }
-
-  ul#tasks li button.delete-btn {
-    margin-left: 0.5rem;
-  }
-}
 
 
 #todoLists {
@@ -172,4 +150,56 @@ p {
   max-width: 400px;
   margin: 2rem auto;
   backdrop-filter: blur(4px);
+}
+
+@media (max-width: 599px) {
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  form#addForm {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  form#addForm input[type="text"] {
+    font-size: 1.4rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  form#addForm button {
+    font-size: 1.4rem;
+    padding: 1.2rem;
+  }
+
+  ul#tasks li {
+    padding: 1.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  ul#tasks li span {
+    font-size: 1.4rem;
+    margin-right: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  ul#tasks li button.delete-btn {
+    font-size: 1.4rem;
+    align-self: flex-end;
+  }
+
+  #todoLists li {
+    padding: 1.5rem;
+  }
+
+  #todoLists li a {
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 1.4rem;
+    padding: 1.5rem;
+  }
 }
