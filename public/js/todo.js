@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!text) return;
 
     try {
-      const res = await fetch(`${listURL}`, {
+      const res = await fetch(`${listURL}/task`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: text })
