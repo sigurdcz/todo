@@ -1,7 +1,3 @@
-Zde je kompletní `README.md` soubor pro tvou TODO aplikaci:
-
----
-
 # 🗒️ TODO Aplikace v čistém PHP & JS
 
 Tato aplikace je jednoduchý TODO systém napsaný v čistém PHP a JavaScriptu bez použití frameworků, composeru nebo buildovacích nástrojů. Architektura je postavena dle MVVM principu a respektuje zásady SOLID, DRY a YAGNI.
